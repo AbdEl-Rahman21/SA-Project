@@ -39,6 +39,10 @@ sprintf("IQR of Math Scores: %d", IQR(StudentsPerformance$`math score`))
 
 sprintf("Variance of Math Scores: %.3f", var(StudentsPerformance$`math score`))
 
+print("A summary of math scores:-")
+
+summary(StudentsPerformance$`math score`)
+
 boxplot(StudentsPerformance$`math score`, 
         main = "Math Score BoxPlot",
         horizontal = TRUE)
@@ -47,3 +51,13 @@ boxplot(StudentsPerformance$`math score` ~ StudentsPerformance$`gender`,
         main = "Male & Female Math Score BoxPlot",
         horizontal = TRUE,
         ylab = "Gender", xlab = "Test Score")
+
+GroupCount <- table(StudentsPerformance$`race/ethnicity`)
+
+barplot(GroupCount, main = "Participation of Groups", 
+        ylab = "Number of Participants", xlab = "Group Name",
+        density = 10)
+
+hist(StudentsPerformance$`math score`, 
+     main = "Math Score Histogram",
+     xlab = "Test Score")
