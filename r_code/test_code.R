@@ -1,7 +1,9 @@
+
 library(readr)
 library(tidyverse)
 library(modeest)
 library(ggplot2)
+library(corrplot)
 
 StudentsPerformance <- read_csv("../StudentsPerformance.csv")
 
@@ -45,7 +47,8 @@ summary(StudentsPerformance$`math score`)
 
 boxplot(StudentsPerformance$`math score`, 
         main = "Math Score BoxPlot",
-        horizontal = TRUE)
+        horizontal = TRUE,
+        xlab = "Test Score")
 
 boxplot(StudentsPerformance$`math score` ~ StudentsPerformance$`gender`, 
         main = "Male & Female Math Score BoxPlot",
@@ -61,3 +64,17 @@ barplot(GroupCount, main = "Participation of Groups",
 hist(StudentsPerformance$`math score`, 
      main = "Math Score Histogram",
      xlab = "Test Score")
+
+corrplot(cor(StudentsPerformance[, sapply(StudentsPerformance, is.numeric)]), 
+         method = "color",addCoef.col = "white", tl.col = "black")
+
+ggplot(StudentsPerformance, aes(x = StudentsPerformance$`math score`, 
+                                y = StudentsPerformance$`reading score`)) +
+  geom_point() + geom_smooth(method = "lm", se = FALSE, color = "blue") +
+  labs(title = "Math/Reading Scatter Plot", x = "Math Score", 
+       y = "Reading Score")
+
+model <- lm(StudentsPerformance$`reading score` ~ 
+              StudentsPerformance$`math score`, StudentsPerformance)
+
+summary(model)
