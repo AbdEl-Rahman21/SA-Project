@@ -30,52 +30,31 @@ if (any(is.na(StudentsPerformance))) {
 }
 
 # Measures of Central Tendency
-sprintf("Mean of Math Scores: %.3f", mean(StudentsPerformance$`math score`))
+View(StudentsPerformance[, sapply(StudentsPerformance, is.numeric)] %>% 
+       summarise_all(mean))
 
-sprintf("Median of Math Scores: %d", median(StudentsPerformance$`math score`))
+View(StudentsPerformance[, sapply(StudentsPerformance, is.numeric)] %>% 
+       summarise_all(median))
 
-sprintf("Mode of Math Scores: %d", getmode(StudentsPerformance$`math score`))
+View(StudentsPerformance[, sapply(StudentsPerformance, is.numeric)] %>% 
+       summarise_all(getmode))
 
-sprintf("Range of Math Scores: %d", max(StudentsPerformance$`math score`) - 
-          min(StudentsPerformance$`math score`))
+View(StudentsPerformance[, sapply(StudentsPerformance, is.numeric)] %>% 
+       summarise_all(range))
 
-sprintf("IQR of Math Scores: %d", IQR(StudentsPerformance$`math score`))
+View(StudentsPerformance[, sapply(StudentsPerformance, is.numeric)] %>% 
+       summarise_all(IQR))
 
-sprintf("Variance of Math Scores: %.3f", var(StudentsPerformance$`math score`))
+View(StudentsPerformance[, sapply(StudentsPerformance, is.numeric)] %>% 
+       summarise_all(var))
 
 print("A summary of math scores:-")
 
 summary(StudentsPerformance$`math score`)
 
-sprintf("Mean of Reading Scores: %.3f", mean(StudentsPerformance$`reading score`))
-
-sprintf("Median of Reading Scores: %d", median(StudentsPerformance$`reading score`))
-
-sprintf("Mode of Reading Scores: %d", getmode(StudentsPerformance$`reading score`))
-
-sprintf("Range of Reading Scores: %d", max(StudentsPerformance$`reading score`) - 
-          min(StudentsPerformance$`reading score`))
-
-sprintf("IQR of Reading Scores: %d", IQR(StudentsPerformance$`reading score`))
-
-sprintf("Variance of Reading Scores: %.3f", var(StudentsPerformance$`reading score`))
-
 print("A summary of Reading scores:-")
 
 summary(StudentsPerformance$`reading score`)
-
-sprintf("Mean of Writing Scores: %.3f", mean(StudentsPerformance$`writing score`))
-
-sprintf("Median of Writing Scores: %d", median(StudentsPerformance$`writing score`))
-
-sprintf("Mode of Writing Scores: %d", getmode(StudentsPerformance$`writing score`))
-
-sprintf("Range of Writing Scores: %d", max(StudentsPerformance$`writing score`) - 
-          min(StudentsPerformance$`writing score`))
-
-sprintf("IQR of Writing Scores: %.3f", IQR(StudentsPerformance$`writing score`))
-
-sprintf("Variance of Writing Scores: %.3f", var(StudentsPerformance$`writing score`))
 
 print("A summary of Writing scores:-")
 
@@ -155,3 +134,6 @@ InputData = data.frame(ReadingScore = c(72, 90, 95, 44, 2, 77, 86, 7))
 View(predict(RegressionModel, InputData))
 
 View(predict(RegressionModel, InputData, interval = "confidence", level = 0.95))
+
+# T Test
+t.test(ReadingScore, WritingScore)
